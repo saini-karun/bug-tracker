@@ -11,8 +11,8 @@ pipeline {
             }
             steps {
                 dir('bugtracker-backend') {
-                    sh 'mkdir -p .gocache'
-                    sh 'GOCACHE=$(pwd)/.gocache go test -v ./...'
+                    sh 'mkdir -p .gocache .gomodcache'
+                    sh 'GOCACHE=$(pwd)/.gocache GOMODCACHE=$(pwd)/.gomodcache go test -v ./...'
                 }
             }
         }
