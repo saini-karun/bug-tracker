@@ -27,7 +27,7 @@ pipeline {
             }
         }
 
-        stage('Unit Test frontend') 
+        stage('Unit Test frontend') {
             agent{
                 docker {
                     image 'node:20-alpine'
@@ -61,4 +61,5 @@ pipeline {
                 sh 'docker compose up --build -d'
             }
         }
+    }
 }
