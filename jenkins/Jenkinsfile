@@ -22,11 +22,12 @@ pipeline {
             post {
                 always {
                     junit 'bugtracker-backend/report.xml'
+                    
                 }
             }
         }
 
-        stage('Unit Test frontend') {
+        stage('Unit Test frontend') 
             agent{
                 docker {
                     image 'node:20-alpine'
@@ -45,6 +46,19 @@ pipeline {
                 always {
                     junit 'bugtracker-frontend/test-results.xml'
                 }
+            }
+        }
+
+        stage('launch application') {
+            agent{
+                docker {
+                    image 'docker:27.5.1'
+                    reuseNode true
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -u 0'
+                }
+            }
+            steps {
+                sh 'docker compose up --build -d'
             }
         }
     }
