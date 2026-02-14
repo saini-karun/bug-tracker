@@ -58,7 +58,9 @@ pipeline {
                 }
             }
             steps {
-                sh 'docker compose up --build -d'
+                withEnv(['DOCKER_HOST=unix:///var/run/docker.sock']) {
+                    sh 'docker compose up --build -d'
+                }
             }
         }
     }
